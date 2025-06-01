@@ -1,0 +1,533 @@
+components:
+  schemas:
+    BatchEmbeddingRequest:
+      description: 批量文本向量化请求
+      properties:
+        metadata:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          description: 可选的元数据列表
+          title: Metadata
+        texts:
+          description: 要向量化的文本列表
+          example:
+          - 文本1
+          - 文本2
+          - 文本3
+          items:
+            type: string
+          title: Texts
+          type: array
+        use_cache:
+          default: true
+          description: 是否使用缓存
+          title: Use Cache
+          type: boolean
+      required:
+      - texts
+      title: BatchEmbeddingRequest
+      type: object
+    BatchEmbeddingResponse:
+      description: 批量向量化响应
+      properties:
+        cache_hits:
+          description: 缓存命中数
+          title: Cache Hits
+          type: integer
+        cache_misses:
+          description: 缓存未命中数
+          title: Cache Misses
+          type: integer
+        performance_gain:
+          description: 性能提升比例
+          title: Performance Gain
+          type: number
+        processing_time:
+          description: 总处理时间（秒）
+          title: Processing Time
+          type: number
+        vectors:
+          description: 向量列表
+          items:
+            items:
+              type: number
+            type: array
+          title: Vectors
+          type: array
+      required:
+      - vectors
+      - cache_hits
+      - cache_misses
+      - processing_time
+      - performance_gain
+      title: BatchEmbeddingResponse
+      type: object
+    BatchMemoryRequest:
+      description: 批量内存写入请求
+      properties:
+        memories:
+          description: 内存记录列表
+          items:
+            $ref: '#/components/schemas/MemoryRequest'
+          title: Memories
+          type: array
+      required:
+      - memories
+      title: BatchMemoryRequest
+      type: object
+    BatchMemoryResponse:
+      description: 批量内存写入响应
+      properties:
+        processing_time:
+          description: 总处理时间（秒）
+          title: Processing Time
+          type: number
+        success_count:
+          description: 成功写入数量
+          title: Success Count
+          type: integer
+        total_count:
+          description: 总数量
+          title: Total Count
+          type: integer
+        uuids:
+          description: 生成的UUID列表
+          items:
+            type: string
+          title: Uuids
+          type: array
+      required:
+      - uuids
+      - success_count
+      - total_count
+      - processing_time
+      title: BatchMemoryResponse
+      type: object
+    CacheInfo:
+      description: 缓存信息
+      properties:
+        hit_rate:
+          description: 命中率
+          title: Hit Rate
+          type: number
+        num_entries:
+          description: 缓存条目数
+          title: Num Entries
+          type: integer
+        total_size_bytes:
+          description: 总大小（字节）
+          title: Total Size Bytes
+          type: integer
+      required:
+      - num_entries
+      - total_size_bytes
+      - hit_rate
+      title: CacheInfo
+      type: object
+    EmbeddingRequest:
+      description: 单文本向量化请求
+      properties:
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: 可选的元数据
+          title: Metadata
+        text:
+          description: 要向量化的文本
+          example: 这是一个测试文本
+          title: Text
+          type: string
+        use_cache:
+          default: true
+          description: 是否使用缓存
+          title: Use Cache
+          type: boolean
+      required:
+      - text
+      title: EmbeddingRequest
+      type: object
+    EmbeddingResponse:
+      description: 向量化响应
+      properties:
+        cached:
+          description: 是否来自缓存
+          title: Cached
+          type: boolean
+        processing_time:
+          description: 处理时间（秒）
+          title: Processing Time
+          type: number
+        vector:
+          description: 向量数据
+          items:
+            type: number
+          title: Vector
+          type: array
+      required:
+      - vector
+      - cached
+      - processing_time
+      title: EmbeddingResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    HealthResponse:
+      description: 健康检查响应
+      properties:
+        cache_status:
+          description: 缓存状态
+          title: Cache Status
+          type: string
+        status:
+          description: 服务状态
+          title: Status
+          type: string
+        timestamp:
+          description: 检查时间
+          title: Timestamp
+          type: string
+        version:
+          description: API版本
+          title: Version
+          type: string
+      required:
+      - status
+      - timestamp
+      - version
+      - cache_status
+      title: HealthResponse
+      type: object
+    MemoryRequest:
+      description: 单条内存写入请求
+      properties:
+        agent:
+          description: 代理标识
+          example: developer
+          title: Agent
+          type: string
+        content:
+          description: 内存内容
+          example: 实现了新功能
+          title: Content
+          type: string
+        project:
+          description: 项目标识
+          example: my-project
+          title: Project
+          type: string
+        repo:
+          description: 仓库名称
+          example: main
+          title: Repo
+          type: string
+        source:
+          default: agent
+          description: 来源
+          example: development
+          title: Source
+          type: string
+        tags:
+          description: 标签列表
+          example:
+          - feature
+          - implementation
+          items:
+            type: string
+          title: Tags
+          type: array
+      required:
+      - content
+      - project
+      - repo
+      - agent
+      - tags
+      title: MemoryRequest
+      type: object
+    MemoryResponse:
+      description: 内存写入响应
+      properties:
+        processing_time:
+          description: 处理时间（秒）
+          title: Processing Time
+          type: number
+        uuid:
+          description: 生成的UUID
+          title: Uuid
+          type: string
+      required:
+      - uuid
+      - processing_time
+      title: MemoryResponse
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+info:
+  contact:
+    email: tech-support@company.com
+    name: Weaviate Memory System Team
+    url: https://github.com/your-repo
+  description: "\n    \U0001F680 **高性能向量内存系统API**\n    \n    提供企业级的文本向量化和内存存储服务，支持：\n\
+    \    - \U0001F9E0 智能缓存机制\n    - ⚡ 批量处理优化\n    - \U0001F50D 语义搜索能力\n    - \U0001F4CA\
+    \ 性能监控\n    \n    ## 核心功能\n    \n    ### 文本向量化\n    - 单文本向量化\n    - 批量文本向量化（智能缓存优化）\n\
+    \    \n    ### 内存管理\n    - 单条内存写入\n    - 批量内存写入\n    - 内存检索和搜索\n    \n    ###\
+    \ 系统管理\n    - 缓存管理\n    - 性能监控\n    - 健康检查\n    "
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Weaviate Memory System API
+  version: 1.0.0
+openapi: 3.1.0
+paths:
+  /:
+    get:
+      description: API根目录，返回基本信息
+      operationId: root__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Root
+      tags:
+      - 根目录
+  /cache:
+    delete:
+      description: '清空所有缓存
+
+
+        删除所有缓存的向量数据。谨慎使用，此操作不可逆。
+
+
+        ## 注意事项
+
+        ⚠️ **重要**: 此操作会清空所有缓存，下次访问时需要重新计算向量
+
+
+        ## 使用场景
+
+        - 🔄 **缓存更新**: 更新模型后清理旧缓存
+
+        - 🧹 **空间清理**: 释放磁盘空间
+
+        - 🐛 **故障恢复**: 解决缓存损坏问题'
+      operationId: clear_cache_cache_delete
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Clear Cache
+      tags:
+      - 缓存管理
+  /cache/info:
+    get:
+      description: '获取缓存信息
+
+
+        返回当前缓存的统计信息，包括条目数、大小、命中率等。
+
+
+        ## 返回信息
+
+        - 📊 **条目统计**: 缓存中的条目总数
+
+        - 💾 **存储大小**: 缓存占用的磁盘空间
+
+        - 🎯 **命中率**: 缓存的效果评估'
+      operationId: get_cache_info_cache_info_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheInfo'
+          description: Successful Response
+      summary: Get Cache Info
+      tags:
+      - 缓存管理
+  /embedding:
+    post:
+      description: "生成单文本的向量表示\n\n将输入文本转换为高维向量，支持智能缓存。\n\n## 特性\n- \U0001F9E0 **智能缓存**:\
+        \ 自动缓存计算结果，提升性能\n- ⚡ **快速响应**: 缓存命中时毫秒级响应\n- \U0001F4CA **性能监控**: 返回详细的性能指标\n\
+        \n## 使用示例\n```python\nimport requests\n\nresponse = requests.post(\"http://localhost:8000/embedding\"\
+        , json={\n    \"text\": \"这是一个测试文本\",\n    \"use_cache\": True\n})\n\nresult\
+        \ = response.json()\nvector = result[\"vector\"]  # 1536维向量\n```"
+      operationId: create_embedding_embedding_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Embedding
+      tags:
+      - 文本向量化
+  /embedding/batch:
+    post:
+      description: "批量生成文本向量表示\n\n高效处理多个文本的向量化，通过智能缓存和API优化显著提升性能。\n\n## 性能优势\n- \U0001F680\
+        \ **60-80%性能提升**: 相比单文本逐个处理\n- \U0001F9E0 **智能缓存**: 只处理未缓存的文本\n- \U0001F4B0\
+        \ **成本优化**: 减少API调用次数\n\n## 最佳实践\n- 建议批次大小: 10-50个文本\n- 短文本(< 100字符): 最多60个\n\
+        - 长文本(> 500字符): 最多25个\n\n## 使用示例\n```python\nimport requests\n\nresponse =\
+        \ requests.post(\"http://localhost:8000/embedding/batch\", json={\n    \"\
+        texts\": [\"文本1\", \"文本2\", \"文本3\"],\n    \"use_cache\": True\n})\n\nresult\
+        \ = response.json()\nvectors = result[\"vectors\"]\nperformance_gain = result[\"\
+        performance_gain\"]\n```"
+      operationId: create_embeddings_batch_embedding_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchEmbeddingRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchEmbeddingResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Embeddings Batch
+      tags:
+      - 文本向量化
+  /health:
+    get:
+      description: '健康检查端点
+
+
+        检查API服务和依赖组件的状态。'
+      operationId: health_check_health_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+          description: Successful Response
+      summary: Health Check
+      tags:
+      - 系统管理
+  /memory:
+    post:
+      description: "写入单条内存记录\n\n将内容和元数据存储到向量数据库中，支持后续的语义搜索。\n\n## 功能特点\n- \U0001F50D\
+        \ **语义搜索**: 支持基于内容的相似性搜索\n- \U0001F3F7️ **标签管理**: 灵活的标签系统\n- \U0001F4DD **元数据支持**:\
+        \ 丰富的元数据存储\n\n## 使用示例\n```python\nimport requests\n\nresponse = requests.post(\"\
+        http://localhost:8000/memory\", json={\n    \"content\": \"实现了新功能\",\n   \
+        \ \"project\": \"my-project\",\n    \"repo\": \"main\", \n    \"agent\": \"\
+        developer\",\n    \"tags\": [\"feature\", \"implementation\"],\n    \"source\"\
+        : \"development\"\n})\n\nresult = response.json()\nuuid = result[\"uuid\"\
+        ]  # 生成的记录ID\n```"
+      operationId: create_memory_memory_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemoryRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemoryResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Memory
+      tags:
+      - 内存管理
+  /memory/batch:
+    post:
+      description: "批量写入内存记录\n\n高效处理大量内存记录的写入，适用于数据迁移、批量导入等场景。\n\n## 适用场景\n- \U0001F4DA\
+        \ **知识库导入**: 批量导入文档和文章\n- \U0001F4AC **对话记录**: 客服对话批量归档\n- \U0001F4C4 **文档处理**:\
+        \ 企业文档批量处理\n- \U0001F504 **数据迁移**: 从其他系统迁移数据\n\n## 性能特点\n- ⚡ **高吞吐**: 支持每分钟数千条记录\n\
+        - \U0001F527 **自动优化**: 智能批次大小调整\n- \U0001F4CA **详细统计**: 返回处理成功率和性能数据\n\n##\
+        \ 使用示例\n```python\nimport requests\n\nmemories = [\n    {\n        \"content\"\
+        : \"实现了新功能\",\n        \"project\": \"my-project\",\n        \"repo\": \"\
+        main\",\n        \"agent\": \"developer\",\n        \"tags\": [\"feature\"\
+        ],\n        \"source\": \"development\"\n    },\n    {\n        \"content\"\
+        : \"修复了bug\", \n        \"project\": \"my-project\",\n        \"repo\": \"\
+        main\",\n        \"agent\": \"developer\",\n        \"tags\": [\"bugfix\"\
+        ],\n        \"source\": \"development\"\n    }\n]\n\nresponse = requests.post(\"\
+        http://localhost:8000/memory/batch\", json={\n    \"memories\": memories\n\
+        })\n\nresult = response.json()\nuuids = result[\"uuids\"]\nsuccess_rate =\
+        \ result[\"success_count\"] / result[\"total_count\"]\n```"
+      operationId: create_memories_batch_memory_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchMemoryRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchMemoryResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Memories Batch
+      tags:
+      - 内存管理

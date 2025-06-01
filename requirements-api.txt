@@ -1,0 +1,17 @@
+# API 服务依赖
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.4.2
+
+# CORS 支持
+python-multipart==0.0.6
+
+# 日志和监控
+prometheus-client==0.18.0
+
+# 异步HTTP客户端
+aiohttp==3.8.6
+aiofiles==23.2.0
+
+# 类型提示
+typing-extensions==4.8.0 

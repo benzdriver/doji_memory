@@ -1,0 +1,668 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Weaviate Memory System API",
+    "description": "\n    🚀 **高性能向量内存系统API**\n    \n    提供企业级的文本向量化和内存存储服务，支持：\n    - 🧠 智能缓存机制\n    - ⚡ 批量处理优化\n    - 🔍 语义搜索能力\n    - 📊 性能监控\n    \n    ## 核心功能\n    \n    ### 文本向量化\n    - 单文本向量化\n    - 批量文本向量化（智能缓存优化）\n    \n    ### 内存管理\n    - 单条内存写入\n    - 批量内存写入\n    - 内存检索和搜索\n    \n    ### 系统管理\n    - 缓存管理\n    - 性能监控\n    - 健康检查\n    ",
+    "contact": {
+      "name": "Weaviate Memory System Team",
+      "url": "https://github.com/your-repo",
+      "email": "tech-support@company.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "根目录"
+        ],
+        "summary": "Root",
+        "description": "API根目录，返回基本信息",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "系统管理"
+        ],
+        "summary": "Health Check",
+        "description": "健康检查端点\n\n检查API服务和依赖组件的状态。",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/embedding": {
+      "post": {
+        "tags": [
+          "文本向量化"
+        ],
+        "summary": "Create Embedding",
+        "description": "生成单文本的向量表示\n\n将输入文本转换为高维向量，支持智能缓存。\n\n## 特性\n- 🧠 **智能缓存**: 自动缓存计算结果，提升性能\n- ⚡ **快速响应**: 缓存命中时毫秒级响应\n- 📊 **性能监控**: 返回详细的性能指标\n\n## 使用示例\n```python\nimport requests\n\nresponse = requests.post(\"http://localhost:8000/embedding\", json={\n    \"text\": \"这是一个测试文本\",\n    \"use_cache\": True\n})\n\nresult = response.json()\nvector = result[\"vector\"]  # 1536维向量\n```",
+        "operationId": "create_embedding_embedding_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbeddingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/embedding/batch": {
+      "post": {
+        "tags": [
+          "文本向量化"
+        ],
+        "summary": "Create Embeddings Batch",
+        "description": "批量生成文本向量表示\n\n高效处理多个文本的向量化，通过智能缓存和API优化显著提升性能。\n\n## 性能优势\n- 🚀 **60-80%性能提升**: 相比单文本逐个处理\n- 🧠 **智能缓存**: 只处理未缓存的文本\n- 💰 **成本优化**: 减少API调用次数\n\n## 最佳实践\n- 建议批次大小: 10-50个文本\n- 短文本(< 100字符): 最多60个\n- 长文本(> 500字符): 最多25个\n\n## 使用示例\n```python\nimport requests\n\nresponse = requests.post(\"http://localhost:8000/embedding/batch\", json={\n    \"texts\": [\"文本1\", \"文本2\", \"文本3\"],\n    \"use_cache\": True\n})\n\nresult = response.json()\nvectors = result[\"vectors\"]\nperformance_gain = result[\"performance_gain\"]\n```",
+        "operationId": "create_embeddings_batch_embedding_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchEmbeddingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchEmbeddingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/memory": {
+      "post": {
+        "tags": [
+          "内存管理"
+        ],
+        "summary": "Create Memory",
+        "description": "写入单条内存记录\n\n将内容和元数据存储到向量数据库中，支持后续的语义搜索。\n\n## 功能特点\n- 🔍 **语义搜索**: 支持基于内容的相似性搜索\n- 🏷️ **标签管理**: 灵活的标签系统\n- 📝 **元数据支持**: 丰富的元数据存储\n\n## 使用示例\n```python\nimport requests\n\nresponse = requests.post(\"http://localhost:8000/memory\", json={\n    \"content\": \"实现了新功能\",\n    \"project\": \"my-project\",\n    \"repo\": \"main\", \n    \"agent\": \"developer\",\n    \"tags\": [\"feature\", \"implementation\"],\n    \"source\": \"development\"\n})\n\nresult = response.json()\nuuid = result[\"uuid\"]  # 生成的记录ID\n```",
+        "operationId": "create_memory_memory_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/memory/batch": {
+      "post": {
+        "tags": [
+          "内存管理"
+        ],
+        "summary": "Create Memories Batch",
+        "description": "批量写入内存记录\n\n高效处理大量内存记录的写入，适用于数据迁移、批量导入等场景。\n\n## 适用场景\n- 📚 **知识库导入**: 批量导入文档和文章\n- 💬 **对话记录**: 客服对话批量归档\n- 📄 **文档处理**: 企业文档批量处理\n- 🔄 **数据迁移**: 从其他系统迁移数据\n\n## 性能特点\n- ⚡ **高吞吐**: 支持每分钟数千条记录\n- 🔧 **自动优化**: 智能批次大小调整\n- 📊 **详细统计**: 返回处理成功率和性能数据\n\n## 使用示例\n```python\nimport requests\n\nmemories = [\n    {\n        \"content\": \"实现了新功能\",\n        \"project\": \"my-project\",\n        \"repo\": \"main\",\n        \"agent\": \"developer\",\n        \"tags\": [\"feature\"],\n        \"source\": \"development\"\n    },\n    {\n        \"content\": \"修复了bug\", \n        \"project\": \"my-project\",\n        \"repo\": \"main\",\n        \"agent\": \"developer\",\n        \"tags\": [\"bugfix\"],\n        \"source\": \"development\"\n    }\n]\n\nresponse = requests.post(\"http://localhost:8000/memory/batch\", json={\n    \"memories\": memories\n})\n\nresult = response.json()\nuuids = result[\"uuids\"]\nsuccess_rate = result[\"success_count\"] / result[\"total_count\"]\n```",
+        "operationId": "create_memories_batch_memory_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchMemoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchMemoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/info": {
+      "get": {
+        "tags": [
+          "缓存管理"
+        ],
+        "summary": "Get Cache Info",
+        "description": "获取缓存信息\n\n返回当前缓存的统计信息，包括条目数、大小、命中率等。\n\n## 返回信息\n- 📊 **条目统计**: 缓存中的条目总数\n- 💾 **存储大小**: 缓存占用的磁盘空间\n- 🎯 **命中率**: 缓存的效果评估",
+        "operationId": "get_cache_info_cache_info_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CacheInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache": {
+      "delete": {
+        "tags": [
+          "缓存管理"
+        ],
+        "summary": "Clear Cache",
+        "description": "清空所有缓存\n\n删除所有缓存的向量数据。谨慎使用，此操作不可逆。\n\n## 注意事项\n⚠️ **重要**: 此操作会清空所有缓存，下次访问时需要重新计算向量\n\n## 使用场景\n- 🔄 **缓存更新**: 更新模型后清理旧缓存\n- 🧹 **空间清理**: 释放磁盘空间\n- 🐛 **故障恢复**: 解决缓存损坏问题",
+        "operationId": "clear_cache_cache_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchEmbeddingRequest": {
+        "properties": {
+          "texts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Texts",
+            "description": "要向量化的文本列表",
+            "example": [
+              "文本1",
+              "文本2",
+              "文本3"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "title": "Use Cache",
+            "description": "是否使用缓存",
+            "default": true
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata",
+            "description": "可选的元数据列表"
+          }
+        },
+        "type": "object",
+        "required": [
+          "texts"
+        ],
+        "title": "BatchEmbeddingRequest",
+        "description": "批量文本向量化请求"
+      },
+      "BatchEmbeddingResponse": {
+        "properties": {
+          "vectors": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Vectors",
+            "description": "向量列表"
+          },
+          "cache_hits": {
+            "type": "integer",
+            "title": "Cache Hits",
+            "description": "缓存命中数"
+          },
+          "cache_misses": {
+            "type": "integer",
+            "title": "Cache Misses",
+            "description": "缓存未命中数"
+          },
+          "processing_time": {
+            "type": "number",
+            "title": "Processing Time",
+            "description": "总处理时间（秒）"
+          },
+          "performance_gain": {
+            "type": "number",
+            "title": "Performance Gain",
+            "description": "性能提升比例"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vectors",
+          "cache_hits",
+          "cache_misses",
+          "processing_time",
+          "performance_gain"
+        ],
+        "title": "BatchEmbeddingResponse",
+        "description": "批量向量化响应"
+      },
+      "BatchMemoryRequest": {
+        "properties": {
+          "memories": {
+            "items": {
+              "$ref": "#/components/schemas/MemoryRequest"
+            },
+            "type": "array",
+            "title": "Memories",
+            "description": "内存记录列表"
+          }
+        },
+        "type": "object",
+        "required": [
+          "memories"
+        ],
+        "title": "BatchMemoryRequest",
+        "description": "批量内存写入请求"
+      },
+      "BatchMemoryResponse": {
+        "properties": {
+          "uuids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uuids",
+            "description": "生成的UUID列表"
+          },
+          "success_count": {
+            "type": "integer",
+            "title": "Success Count",
+            "description": "成功写入数量"
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count",
+            "description": "总数量"
+          },
+          "processing_time": {
+            "type": "number",
+            "title": "Processing Time",
+            "description": "总处理时间（秒）"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uuids",
+          "success_count",
+          "total_count",
+          "processing_time"
+        ],
+        "title": "BatchMemoryResponse",
+        "description": "批量内存写入响应"
+      },
+      "CacheInfo": {
+        "properties": {
+          "num_entries": {
+            "type": "integer",
+            "title": "Num Entries",
+            "description": "缓存条目数"
+          },
+          "total_size_bytes": {
+            "type": "integer",
+            "title": "Total Size Bytes",
+            "description": "总大小（字节）"
+          },
+          "hit_rate": {
+            "type": "number",
+            "title": "Hit Rate",
+            "description": "命中率"
+          }
+        },
+        "type": "object",
+        "required": [
+          "num_entries",
+          "total_size_bytes",
+          "hit_rate"
+        ],
+        "title": "CacheInfo",
+        "description": "缓存信息"
+      },
+      "EmbeddingRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text",
+            "description": "要向量化的文本",
+            "example": "这是一个测试文本"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "title": "Use Cache",
+            "description": "是否使用缓存",
+            "default": true
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata",
+            "description": "可选的元数据"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "EmbeddingRequest",
+        "description": "单文本向量化请求"
+      },
+      "EmbeddingResponse": {
+        "properties": {
+          "vector": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Vector",
+            "description": "向量数据"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached",
+            "description": "是否来自缓存"
+          },
+          "processing_time": {
+            "type": "number",
+            "title": "Processing Time",
+            "description": "处理时间（秒）"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vector",
+          "cached",
+          "processing_time"
+        ],
+        "title": "EmbeddingResponse",
+        "description": "向量化响应"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "服务状态"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "检查时间"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "API版本"
+          },
+          "cache_status": {
+            "type": "string",
+            "title": "Cache Status",
+            "description": "缓存状态"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "timestamp",
+          "version",
+          "cache_status"
+        ],
+        "title": "HealthResponse",
+        "description": "健康检查响应"
+      },
+      "MemoryRequest": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "内存内容",
+            "example": "实现了新功能"
+          },
+          "project": {
+            "type": "string",
+            "title": "Project",
+            "description": "项目标识",
+            "example": "my-project"
+          },
+          "repo": {
+            "type": "string",
+            "title": "Repo",
+            "description": "仓库名称",
+            "example": "main"
+          },
+          "agent": {
+            "type": "string",
+            "title": "Agent",
+            "description": "代理标识",
+            "example": "developer"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags",
+            "description": "标签列表",
+            "example": [
+              "feature",
+              "implementation"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "来源",
+            "default": "agent",
+            "example": "development"
+          }
+        },
+        "type": "object",
+        "required": [
+          "content",
+          "project",
+          "repo",
+          "agent",
+          "tags"
+        ],
+        "title": "MemoryRequest",
+        "description": "单条内存写入请求"
+      },
+      "MemoryResponse": {
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "title": "Uuid",
+            "description": "生成的UUID"
+          },
+          "processing_time": {
+            "type": "number",
+            "title": "Processing Time",
+            "description": "处理时间（秒）"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uuid",
+          "processing_time"
+        ],
+        "title": "MemoryResponse",
+        "description": "内存写入响应"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
