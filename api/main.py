@@ -1,14 +1,14 @@
 """
-Weaviate Memory System REST API
+Doji Memory System REST API
 
 提供统一的REST API接口，支持批量处理、单文本处理、内存管理等功能。
 自动生成OpenAPI/Swagger文档。
 
 Copyright (c) 2024 Ziyan Zhou
-Source: https://github.com/benzdriver/weaviate-memory-syste
+Source: https://github.com/benzdriver/doji_memory
 License: MIT License
 
-This file is part of Weaviate Memory System.
+This file is part of Doji Memory System.
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks, status
@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 # 创建FastAPI应用
 app = FastAPI(
-    title="Weaviate Memory System API",
+    title="Doji Memory System API",
     description="""
     🚀 **高性能向量内存系统API**
     
@@ -66,18 +66,18 @@ app = FastAPI(
     ---
     
     **Copyright © 2024 Ziyan Zhou**  
-    **Source**: [GitHub Repository](https://github.com/benzdriver/weaviate-memory-syste)  
+    **Source**: [GitHub Repository](https://github.com/benzdriver/doji_memory)  
     **License**: MIT License
     """,
     version="1.0.0",
     contact={
         "name": "Ziyan Zhou",
-        "url": "https://github.com/benzdriver/weaviate-memory-syste",
+        "url": "https://github.com/benzdriver/doji_memory",
         "email": "ziyan.zhou@example.com"
     },
     license_info={
         "name": "MIT License",
-        "url": "https://github.com/benzdriver/weaviate-memory-syste/blob/main/LICENSE"
+        "url": "https://github.com/benzdriver/doji_memory/blob/main/LICENSE"
     },
     docs_url="/docs",  # Swagger UI
     redoc_url="/redoc",  # ReDoc
@@ -208,22 +208,22 @@ async def root():
     包含系统标识信息，用于版权保护和来源追踪。
     """
     return {
-        "name": "Weaviate Memory System API",
+        "name": "Doji Memory System API",
         "version": "1.0.0",
         "description": "高性能向量内存系统API",
         "author": "Ziyan Zhou",
         "copyright": "Copyright © 2024 Ziyan Zhou",
         "license": "MIT License",
-        "source": "https://github.com/benzdriver/weaviate-memory-syste",
+        "source": "https://github.com/benzdriver/doji_memory",
         "docs": "/docs",
         "redoc": "/redoc",
         "openapi": "/openapi.json",
         "powered_by": "Weaviate + OpenAI + FastAPI",
         "build_info": {
-            "system": "Weaviate Memory System",
-            "repository": "https://github.com/benzdriver/weaviate-memory-syste",
+            "system": "Doji Memory System",
+            "repository": "https://github.com/benzdriver/doji_memory",
             "author_github": "https://github.com/benzdriver",
-            "license_url": "https://github.com/benzdriver/weaviate-memory-syste/blob/main/LICENSE"
+            "license_url": "https://github.com/benzdriver/doji_memory/blob/main/LICENSE"
         }
     }
 

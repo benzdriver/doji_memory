@@ -6,7 +6,7 @@
 
 - **作者**: Ziyan Zhou
 - **GitHub**: [@benzdriver](https://github.com/benzdriver)
-- **项目地址**: https://github.com/benzdriver/weaviate-memory-syste
+- **项目地址**: https://github.com/benzdriver/doji_memory
 - **许可证**: MIT License
 
 ## 🛡️ 安全漏洞报告
@@ -38,10 +38,10 @@
 2. **运行时标识**
    ```json
    {
-     "system": "Weaviate Memory System",
+     "system": "Doji Memory System",
      "author": "Ziyan Zhou",
      "copyright": "Copyright © 2024 Ziyan Zhou",
-     "source": "https://github.com/benzdriver/weaviate-memory-syste"
+     "source": "https://github.com/benzdriver/doji_memory"
    }
    ```
 
@@ -56,15 +56,15 @@
 
 ✅ **保留版权声明**
 ```python
-# Powered by Weaviate Memory System
-# Source: https://github.com/benzdriver/weaviate-memory-syste  
+# Powered by Doji Memory System
+# Source: https://github.com/benzdriver/doji_memory  
 # Author: Ziyan Zhou
 # License: MIT
 ```
 
 ✅ **注明来源项目**
 ```markdown
-本项目使用了 [Weaviate Memory System](https://github.com/benzdriver/weaviate-memory-syste) 
+本项目使用了 [Doji Memory System](https://github.com/benzdriver/doji_memory) 
 作为向量存储解决方案，作者：Ziyan Zhou
 ```
 
@@ -117,8 +117,8 @@
 
 - **项目维护者**: Ziyan Zhou
 - **GitHub**: https://github.com/benzdriver
-- **项目地址**: https://github.com/benzdriver/weaviate-memory-syste
-- **安全邮箱**: [security@your-domain.com]
+- **项目地址**: https://github.com/benzdriver/doji_memory
+- **安全邮箱**: [benz92124@gmail.com]
 
 ---
 

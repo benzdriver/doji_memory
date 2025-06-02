@@ -89,25 +89,25 @@ def demo_batch_memory_writing():
     # Test data
     memories = [
         {
-            "content": "Implemented batch processing for embedding generation",
-            "project": "weaviate-memory-system",
+            "content": "优化了批量处理性能",
+            "project": "doji-memory",
             "repo": "main",
-            "agent": "claude",
-            "tags": ["feature", "batch-processing", "performance"]
+            "agent": "developer",
+            "tags": ["optimization", "performance"]
         },
         {
-            "content": "Added comprehensive test coverage for batch operations",
-            "project": "weaviate-memory-system", 
+            "content": "添加了智能缓存功能",
+            "project": "doji-memory",
             "repo": "main",
-            "agent": "claude",
-            "tags": ["testing", "batch-processing"]
+            "agent": "developer",
+            "tags": ["feature", "caching"]
         },
         {
-            "content": "Optimized API calls with intelligent caching strategy",
-            "project": "weaviate-memory-system",
-            "repo": "main", 
-            "agent": "claude",
-            "tags": ["optimization", "caching"]
+            "content": "完善了API文档",
+            "project": "doji-memory",
+            "repo": "main",
+            "agent": "developer",
+            "tags": ["documentation", "api"]
         }
     ]
     
@@ -121,9 +121,9 @@ def demo_batch_memory_writing():
     
     # Simulate batch write (would normally call write_memories_batch)
     print("📝 Batch Memory Write:")
-    print("  Memory 1: Implemented batch processing...")
-    print("  Memory 2: Added comprehensive test coverage...")  
-    print("  Memory 3: Optimized API calls...")
+    print("  Memory 1: Optimized batch processing...")
+    print("  Memory 2: Added intelligent caching...")  
+    print("  Memory 3: Completed API documentation...")
     print()
     print("✅ All memories would be written efficiently in batch!")
     print()

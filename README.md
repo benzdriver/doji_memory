@@ -1,4 +1,4 @@
-# 🚀 Weaviate Memory System
+# 🚀 Doji Memory System
 
 > **企业级向量内存系统** | 智能缓存 · 批量处理 · REST API · 一键部署
 
@@ -19,8 +19,8 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/benzdriver/weaviate-memory-syste.git
-cd weaviate-memory-syste
+git clone https://github.com/benzdriver/doji_memory.git
+cd doji_memory
 
 # 2. 配置环境变量
 echo "OPENAI_API_KEY=your_openai_api_key" > .env
@@ -149,23 +149,23 @@ pytest --cov=vector tests/
 
 **在代码中引用**：
 ```python
-# Powered by Weaviate Memory System
-# Source: https://github.com/benzdriver/weaviate-memory-syste
+# Powered by Doji Memory System
+# Source: https://github.com/benzdriver/doji_memory
 # Author: Ziyan Zhou
 ```
 
 **在文档中引用**：
 ```markdown
-本项目使用了 [Weaviate Memory System](https://github.com/benzdriver/weaviate-memory-syste) 
+本项目使用了 [Doji Memory System](https://github.com/benzdriver/doji_memory) 
 作为向量存储解决方案，作者：Ziyan Zhou
 ```
 
 **在学术论文中引用**：
 ```bibtex
-@software{zhou2024_weaviate_memory_system,
+@software{zhou2024_doji_memory_system,
   author = {Zhou, Ziyan},
-  title = {Weaviate Memory System: Enterprise Vector Memory System},
-  url = {https://github.com/benzdriver/weaviate-memory-syste},
+  title = {Doji Memory System: Enterprise Vector Memory System},
+  url = {https://github.com/benzdriver/doji_memory},
   year = {2024},
   note = {Open source vector storage and retrieval system}
 }
@@ -224,15 +224,38 @@ pytest --cov=vector tests/
 
 - 👨‍💻 **作者**: Ziyan Zhou
 - 📧 **邮箱**: [联系邮箱]
-- 🐛 **问题报告**: [GitHub Issues](https://github.com/benzdriver/weaviate-memory-syste/issues)
-- 💬 **讨论**: [GitHub Discussions](https://github.com/benzdriver/weaviate-memory-syste/discussions)
-- 📖 **文档**: [项目文档](https://github.com/benzdriver/weaviate-memory-syste/wiki)
+- 🐛 **问题报告**: [GitHub Issues](https://github.com/benzdriver/doji_memory/issues)
+- 💬 **讨论**: [GitHub Discussions](https://github.com/benzdriver/doji_memory/discussions)
+- 📖 **文档**: [项目文档](https://github.com/benzdriver/doji_memory/wiki)
 
 ## ⭐ 如果觉得有用，请给个Star！
 
 如果这个项目对您有帮助，请考虑给个 Star ⭐ 来支持开发！
 
-[![GitHub stars](https://img.shields.io/github/stars/benzdriver/weaviate-memory-syste.svg?style=social&label=Star)](https://github.com/benzdriver/weaviate-memory-syste/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/benzdriver/doji_memory.svg?style=social&label=Star)](https://github.com/benzdriver/doji_memory/stargazers)
+
+---
+
+## 📜 第三方软件声明
+
+本项目使用了以下开源软件，特此致谢：
+
+### 核心依赖
+- **[Weaviate](https://github.com/weaviate/weaviate)** - Vector Database (BSD-3-Clause License)
+- **[OpenAI API](https://openai.com/)** - Text Embedding Service (Commercial License)
+- **[FastAPI](https://github.com/tiangolo/fastapi)** - Web Framework (MIT License)
+
+### 开发依赖
+- **[Python](https://python.org/)** - Programming Language (PSF License)
+- **[Docker](https://docker.com/)** - Containerization Platform (Apache 2.0 License)
+
+完整的依赖列表和许可证信息请参见 `requirements.txt` 文件。
+
+本项目遵循所有第三方软件的许可证要求，并感谢开源社区的贡献。
+
+---
+
+*Powered by Open Source Software 🙏*
 
 ---
 

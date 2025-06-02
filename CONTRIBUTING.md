@@ -1,6 +1,6 @@
 # 🤝 贡献指南
 
-感谢您对 Weaviate Memory System 的关注！我们欢迎任何形式的贡献。
+感谢您对 Doji Memory System 的关注！我们欢迎任何形式的贡献。
 
 ## 📋 贡献类型
 
@@ -24,8 +24,8 @@
 
 ```bash
 # 1. Fork 并克隆仓库
-git clone https://github.com/YOUR_USERNAME/weaviate-memory-syste.git
-cd weaviate-memory-syste
+git clone https://github.com/YOUR_USERNAME/doji_memory.git
+cd doji_memory
 
 # 2. 创建虚拟环境
 python -m venv venv
@@ -104,7 +104,7 @@ Closes #123
 
 ```bash
 # 确保您的 fork 是最新的
-git remote add upstream https://github.com/benzdriver/weaviate-memory-syste.git
+git remote add upstream https://github.com/benzdriver/doji_memory.git
 git fetch upstream
 git checkout main
 git merge upstream/main
@@ -231,7 +231,7 @@ def your_function(param1: str, param2: int = 10) -> dict:
 
 ## 🐛 Bug 报告
 
-请使用 [GitHub Issues](https://github.com/benzdriver/weaviate-memory-syste/issues) 报告 bug，包括：
+请使用 [GitHub Issues](https://github.com/benzdriver/doji_memory/issues) 报告 bug，包括：
 
 ### Bug 报告模板
 
@@ -262,7 +262,7 @@ def your_function(param1: str, param2: int = 10) -> dict:
 
 ## 💡 功能建议
 
-使用 [GitHub Issues](https://github.com/benzdriver/weaviate-memory-syste/issues) 提出功能建议：
+使用 [GitHub Issues](https://github.com/benzdriver/doji_memory/issues) 提出功能建议：
 
 ### 功能建议模板
 
@@ -304,8 +304,8 @@ def your_function(param1: str, param2: int = 10) -> dict:
 如果您在贡献过程中遇到问题，可以：
 
 - 查看 [文档](README.md)
-- 搜索 [已有的 issues](https://github.com/benzdriver/weaviate-memory-syste/issues)
-- 在 [Discussions](https://github.com/benzdriver/weaviate-memory-syste/discussions) 中提问
+- 搜索 [已有的 issues](https://github.com/benzdriver/doji_memory/issues)
+- 在 [Discussions](https://github.com/benzdriver/doji_memory/discussions) 中提问
 - 联系维护者
 
 ---

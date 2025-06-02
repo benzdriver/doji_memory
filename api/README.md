@@ -529,8 +529,8 @@ curl -X GET "http://localhost:8000/health"
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/your-repo/weaviate-memory-system.git
-cd weaviate-memory-system
+git clone https://github.com/your-repo/doji-memory.git
+cd doji-memory
 
 # 2. 安装开发依赖
 pip install -r requirements-dev.txt
