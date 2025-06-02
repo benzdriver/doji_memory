@@ -166,7 +166,7 @@ pytest --cov=vector tests/
   author = {Zhou, Ziyan},
   title = {Doji Memory System: Enterprise Vector Memory System},
   url = {https://github.com/benzdriver/doji_memory},
-  year = {2024},
+  year = {2025},
   note = {Open source vector storage and retrieval system}
 }
 ```
@@ -223,7 +223,7 @@ pytest --cov=vector tests/
 ## 📞 支持与联系
 
 - 👨‍💻 **作者**: Ziyan Zhou
-- 📧 **邮箱**: [联系邮箱]
+- 📧 **邮箱**: [benz92124@gmail.com]
 - 🐛 **问题报告**: [GitHub Issues](https://github.com/benzdriver/doji_memory/issues)
 - 💬 **讨论**: [GitHub Discussions](https://github.com/benzdriver/doji_memory/discussions)
 - 📖 **文档**: [项目文档](https://github.com/benzdriver/doji_memory/wiki)
